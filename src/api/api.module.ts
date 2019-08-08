@@ -3,18 +3,30 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
-import { ClienteControllerService } from './api/clienteController.service';
-import { FornecedorControllerService } from './api/fornecedorController.service';
-import { ProdutoControllerService } from './api/produtoController.service';
+import { CashierControllerService } from './api/cashierController.service';
+import { ClientControllerService } from './api/clientController.service';
+import { ItemCategoryControllerService } from './api/itemCategoryController.service';
+import { ItemControllerService } from './api/itemController.service';
+import { ProductCategoryControllerService } from './api/productCategoryController.service';
+import { ProductControllerService } from './api/productController.service';
+import { ProviderControllerService } from './api/providerController.service';
+import { SaleControllerService } from './api/saleController.service';
+import { TablesControllerService } from './api/tablesController.service';
 
 @NgModule({
   imports:      [],
   declarations: [],
   exports:      [],
   providers: [
-    ClienteControllerService,
-    FornecedorControllerService,
-    ProdutoControllerService ]
+    CashierControllerService,
+    ClientControllerService,
+    ItemCategoryControllerService,
+    ItemControllerService,
+    ProductCategoryControllerService,
+    ProductControllerService,
+    ProviderControllerService,
+    SaleControllerService,
+    TablesControllerService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {

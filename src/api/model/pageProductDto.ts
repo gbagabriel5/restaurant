@@ -10,12 +10,12 @@
  * Do not edit the class manually.
  */
 import { Pageable } from './pageable';
-import { ProdutoDto } from './produtoDto';
+import { ProductDto } from './productDto';
 import { Sort } from './sort';
 
 
-export interface PageProdutoDto { 
-    content?: Array<ProdutoDto>;
+export interface PageProductDto { 
+    content?: Array<ProductDto>;
     empty?: boolean;
     first?: boolean;
     last?: boolean;

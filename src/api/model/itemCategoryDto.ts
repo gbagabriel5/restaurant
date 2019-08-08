@@ -11,7 +11,7 @@
  */
 
 
-export interface GrupoProdutoDto { 
-    grpcod?: number;
-    grpdesc?: string;
+export interface ItemCategoryDto { 
+    description?: string;
+    id?: number;
 }

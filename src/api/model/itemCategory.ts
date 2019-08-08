@@ -11,11 +11,7 @@
  */
 
 
-export interface FornecedorDto { 
-    forcep?: string;
-    forcnpj?: string;
-    forcod?: number;
-    forend?: string;
-    forfone?: string;
-    fornome?: string;
+export interface ItemCategory { 
+    description?: string;
+    id?: number;
 }

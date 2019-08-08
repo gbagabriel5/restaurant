@@ -9,13 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ClienteDto } from './clienteDto';
 import { Pageable } from './pageable';
+import { SaleDto } from './saleDto';
 import { Sort } from './sort';
 
 
-export interface PageClienteDto { 
-    content?: Array<ClienteDto>;
+export interface PageSaleDto { 
+    content?: Array<SaleDto>;
     empty?: boolean;
     first?: boolean;
     last?: boolean;

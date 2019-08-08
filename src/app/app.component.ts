@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ClienteControllerService } from 'src/api';
 
 export interface Pageable {
   content: Array<any>;
@@ -12,16 +10,10 @@ export interface Pageable {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  clients = [];
 
-  constructor(private clienteService: ClienteControllerService){
-
+  constructor() {
   }
 
   ngOnInit() {
-    this.clienteService.findAllUsingGET().subscribe( res => {
-      console.log(res);
-      this.clients = res.content;
-    })
   }
 }

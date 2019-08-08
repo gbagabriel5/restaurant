@@ -11,11 +11,14 @@
  */
 
 
-export interface ClienteDto { 
-    clicod?: number;
-    clicpf?: string;
-    cliend?: string;
-    clifone?: string;
-    clinome?: string;
-    clirg?: string;
+export interface CashierDto { 
+    closureDate?: string;
+    date?: string;
+    description?: string;
+    endDate?: number;
+    id?: number;
+    obs?: string;
+    openDate?: string;
+    startDate?: number;
+    status?: string;
 }

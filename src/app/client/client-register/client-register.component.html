@@ -1,0 +1,26 @@
+
+  <form [formGroup]="formClient" >
+    <div class="example-container">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Enter your Name" formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>rg</mat-label>
+        <input matInput placeholder="Enter your rg" formControlName="rg" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>cpf</mat-label>
+        <input matInput placeholder="Enter your cpf" formControlName="cpf" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>address</mat-label>
+        <input matInput placeholder="Enter your address" formControlName="address" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>fone</mat-label>
+        <input matInput placeholder="Enter your fone" formControlName="fone" required>
+      </mat-form-field>
+      <button mat-raised-button (click)="save()">Save</button>
+    </div>
+  </form>

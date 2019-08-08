@@ -1,0 +1,76 @@
+
+<form [formGroup]="formItem" >
+  <div class="example-container">
+    <h1 align="center">Insumos</h1>
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name"/>
+      <mat-error *ngIf="hasError('name', 'required')">Informe o nome</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Preço</mat-label>
+      <input matInput formControlName="price"/>
+      <mat-error *ngIf="hasError('price', 'required')">Informe o Preço</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Custo</mat-label>
+      <input matInput formControlName="cost"/>
+      <mat-error *ngIf="hasError('cost', 'required')">Informe o Custo</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Quantidade</mat-label>
+      <input matInput formControlName="quantity"/>
+      <mat-error *ngIf="hasError('quantity', 'required')">Informe o Quantidade</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Quantidade Minima</mat-label>
+      <input matInput formControlName="minQuantity"/>
+      <mat-error *ngIf="hasError('minQuantity', 'required')">Informe o Quantidade Minima</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Validade</mat-label>
+      <input matInput formControlName="shelfLife"/>
+      <mat-error *ngIf="hasError('shelfLife', 'required')">Validade</mat-error>
+    </mat-form-field>
+    <label id="example-radio-group-label">Selecione a unidade de medida</label>
+    <mat-radio-group
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      formControlName="unit">
+      <mat-radio-button class="example-radio-button" *ngFor="let unit of units" [value]="unit">
+        {{unit}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Categoria</mat-label>
+      <mat-select required placeholder="categoria" [(ngModel)]="selectedCategory" [formControl]="formItem.get('itemCategoryDto')">
+        <mat-option *ngFor="let category of categoryList" [value]="category">
+          {{ category.description}}
+        </mat-option>
+      </mat-select>
+      <mat-error class="error-form-field"
+                 *ngIf="formItem.get('itemCategoryDto').touched && hasError('itemCategoryDto', 'required')">Selecione uma
+        categoria</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Fornecedor</mat-label>
+      <mat-select required placeholder="Fornecedor" [(ngModel)]="selectedProvider" [formControl]="formItem.get('providerDto')">
+        <mat-option *ngFor="let provider of providerList" [value]="provider">
+          {{ provider.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error class="error-form-field"
+                 *ngIf="formItem.get('itemCategoryDto').touched && hasError('itemCategoryDto', 'required')">Selecione uma
+        categoria</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+  </div>
+</form>

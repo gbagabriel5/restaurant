@@ -196,10 +196,10 @@ export class ProductCategoryControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllUsingGET4(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'body', reportProgress?: boolean): Observable<PageProductCategoryDto>;
-    public getAllUsingGET4(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageProductCategoryDto>>;
-    public getAllUsingGET4(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageProductCategoryDto>>;
-    public getAllUsingGET4(count?: number, order?: string, page?: number, sortProperty?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'body', reportProgress?: boolean): Observable<PageProductCategoryDto>;
+    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageProductCategoryDto>>;
+    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageProductCategoryDto>>;
+    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 

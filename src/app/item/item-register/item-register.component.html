@@ -1,5 +1,5 @@
 
-<form [formGroup]="formItem" >
+<form [formGroup]="formItem" (ngSubmit)="save()">
   <div class="example-container">
     <h1 align="center">Insumos</h1>
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
@@ -71,6 +71,6 @@
         categoria</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="save()">Save</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!this.formItem.valid">Save</button>
   </div>
 </form>

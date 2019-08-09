@@ -5,7 +5,8 @@ import {
   ProviderControllerService, ProviderDto
 } from '../../../api';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {RxwebValidators} from "@rxweb/reactive-form-validators";
+import {RxwebValidators} from '@rxweb/reactive-form-validators';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-item-register',
@@ -38,7 +39,8 @@ export class ItemRegisterComponent implements OnInit {
     private itemService: ItemControllerService,
     private categoryService: ItemCategoryControllerService,
     private providerService: ProviderControllerService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private mensageSnack: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -96,7 +98,6 @@ export class ItemRegisterComponent implements OnInit {
     this.item.quantity = this.formItem.value.quantity;
     this.item.minQuantity = this.formItem.value.minQuantity;
     this.item.shelfLife = this.formItem.value.shelfLife;
-    this.item.status = null;
     this.item.itemCategoryDto = this.formItem.value.itemCategoryDto;
     this.item.providerDto = this.formItem.value.providerDto;
   }
@@ -104,8 +105,19 @@ export class ItemRegisterComponent implements OnInit {
     return this.formItem.get(controlName).hasError(errorName);
   }
   public save() {
-    this.setItem();
-    console.log(this.item);
-    this.itemService.createUsingPOST3(this.item).subscribe(items => console.log(items));
+      this.setItem();
+      console.log(this.item);
+      this.itemService.createUsingPOST3(this.item)
+        .subscribe((items) => {
+            this.mensageSnack.open('Item cadastrado com sucesso!', null, {
+              duration: 3000
+            });
+            this.formItem.reset();
+          }, err => {
+            this.mensageSnack.open(err.error.message, null, {
+              duration: 3000
+            });
+          }
+        );
   }
 }

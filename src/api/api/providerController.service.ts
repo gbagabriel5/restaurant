@@ -196,10 +196,10 @@ export class ProviderControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllUsingGET6(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'body', reportProgress?: boolean): Observable<PageProviderDto>;
-    public getAllUsingGET6(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageProviderDto>>;
-    public getAllUsingGET6(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageProviderDto>>;
-    public getAllUsingGET6(count?: number, order?: string, page?: number, sortProperty?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllUsingGET5(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'body', reportProgress?: boolean): Observable<PageProviderDto>;
+    public getAllUsingGET5(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageProviderDto>>;
+    public getAllUsingGET5(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageProviderDto>>;
+    public getAllUsingGET5(count?: number, order?: string, page?: number, sortProperty?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 

@@ -1,4 +1,4 @@
-import { ApiModule } from './../api/api.module';
+import { ApiModule } from '../api';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -11,7 +11,13 @@ import {
   MatButtonModule,
   MatInputModule,
   MatSelectModule,
-  MatRadioModule
+  MatRadioModule,
+  MatSnackBarModule,
+  MatPaginatorModule,
+  MatMenuModule,
+  MatIconModule,
+  MatProgressSpinnerModule,
+  MatSortModule
 } from '@angular/material';
 import {ClientsListComponent} from './client/clients-list/clients-list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -19,6 +25,8 @@ import {ClientRegisterComponent} from './client/client-register/client-register.
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemRegisterComponent } from './item/item-register/item-register.component';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import {RouterModule} from "@angular/router";
+import {ExtendedModule, FlexModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -44,7 +52,16 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
     ReactiveFormsModule,
     RxReactiveFormsModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    RouterModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    FlexModule,
+    ExtendedModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

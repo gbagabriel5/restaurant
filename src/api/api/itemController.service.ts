@@ -187,19 +187,21 @@ export class ItemControllerService {
     }
 
     /**
-     * List all
+     * Find Item by name
      * 
      * @param count count
-     * @param order order
+     * @param direction direction
+     * @param name name
+     * @param orderby orderby
      * @param page page
-     * @param sortProperty sortProperty
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
-    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
-    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
-    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findByNameUsingGET(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
+    public findByNameUsingGET(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
+    public findByNameUsingGET(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
+    public findByNameUsingGET(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
 
 
 
@@ -209,14 +211,17 @@ export class ItemControllerService {
         if (count !== undefined && count !== null) {
             queryParameters = queryParameters.set('count', <any>count);
         }
-        if (order !== undefined && order !== null) {
-            queryParameters = queryParameters.set('order', <any>order);
+        if (direction !== undefined && direction !== null) {
+            queryParameters = queryParameters.set('direction', <any>direction);
+        }
+        if (name !== undefined && name !== null) {
+            queryParameters = queryParameters.set('name', <any>name);
+        }
+        if (orderby !== undefined && orderby !== null) {
+            queryParameters = queryParameters.set('orderby', <any>orderby);
         }
         if (page !== undefined && page !== null) {
             queryParameters = queryParameters.set('page', <any>page);
-        }
-        if (sortProperty !== undefined && sortProperty !== null) {
-            queryParameters = queryParameters.set('sortProperty', <any>sortProperty);
         }
 
         let headers = this.defaultHeaders;
@@ -234,7 +239,7 @@ export class ItemControllerService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<PageItemDto>(`${this.basePath}/item`,
+        return this.httpClient.get<PageItemDto>(`${this.basePath}/item/getByName`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

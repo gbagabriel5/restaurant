@@ -12,7 +12,7 @@
 
           <div >
             <div fxHide.xs class="container-btn-new" fxLayoutAlign="end">
-              <button mat-raised-button class="btn-new">{{'Cadastrar'}}</button>
+              <button mat-raised-button class="btn-new" [routerLink]="['/item/register']">{{'Cadastrar'}}</button>
             </div>
             <h3 fxLayoutAlign="start" >{{'Item'}}</h3>
           </div>
@@ -34,7 +34,7 @@
                   <mat-label>{{'Procurar'}}</mat-label>
                   <input matInput #searhParamElement  (keyup.enter)="applyFilter($event.target.value)"
                          class="search-input">
-                  <mat-icon matPrefix svgIcon="icon-search" matSuffix id="searchIcon" class="clickable" (click)="applyFilter(searhParamElement.value)"></mat-icon>
+                  <mat-icon matPrefix matSuffix id="searchIcon" class="clickable" (click)="applyFilter(searhParamElement.value)" style="color: #4c9cfa">search</mat-icon>
                 </mat-form-field>
               </div>
             </div>
@@ -55,11 +55,11 @@
 
               <ng-container matColumnDef="options">
                 <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let row" class="td-content"><mat-icon svgIcon="icon-more-horiz" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row: row}"></mat-icon></td>
+                <td mat-cell *matCellDef="let row" class="td-content"><mat-icon [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row: row}">more_vert</mat-icon></td>
 
                 <mat-menu #menu="matMenu">
                   <ng-template matMenuContent let-row="row">
-                    <button mat-menu-item>
+                    <button mat-menu-item [routerLink]="['/item/update', row.id]">
                       {{'Edit'}}
                     </button>
                     <button mat-menu-item (click)="deleteItem(row);">{{'Delete'}}</button>

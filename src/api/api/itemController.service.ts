@@ -251,6 +251,65 @@ export class ItemControllerService {
     }
 
     /**
+     * List all
+     * 
+     * @param count count
+     * @param order order
+     * @param page page
+     * @param sortProperty sortProperty
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
+    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
+    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
+    public getAllUsingGET3(count?: number, order?: string, page?: number, sortProperty?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (count !== undefined && count !== null) {
+            queryParameters = queryParameters.set('count', <any>count);
+        }
+        if (order !== undefined && order !== null) {
+            queryParameters = queryParameters.set('order', <any>order);
+        }
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+        if (sortProperty !== undefined && sortProperty !== null) {
+            queryParameters = queryParameters.set('sortProperty', <any>sortProperty);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PageItemDto>(`${this.basePath}/item`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Update Item
      * 
      * @param itemDto Item

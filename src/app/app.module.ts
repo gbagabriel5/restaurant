@@ -1,7 +1,6 @@
 import { ApiModule } from '../api';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,8 +24,11 @@ import {ClientRegisterComponent} from './client/client-register/client-register.
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemRegisterComponent } from './item/item-register/item-register.component';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
-import {RouterModule} from "@angular/router";
-import {ExtendedModule, FlexModule} from "@angular/flex-layout";
+import {ExtendedModule, FlexModule} from '@angular/flex-layout';
+import {RouterModule} from '@angular/router';
+import {AppRoutingModule} from './app.routing.module';
+import {ErrorsModule} from './errors/errors.module';
+import {MaterialModule} from './material-module';
 
 
 @NgModule({
@@ -41,27 +43,18 @@ import {ExtendedModule, FlexModule} from "@angular/flex-layout";
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    MatFormFieldModule,
     ApiModule,
     FormsModule,
-    MatButtonModule,
     ReactiveFormsModule,
-    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     RxReactiveFormsModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatSnackBarModule,
-    MatPaginatorModule,
-    MatMenuModule,
     RouterModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
     FlexModule,
     ExtendedModule,
-    MatSortModule
+    AppRoutingModule,
+    ErrorsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

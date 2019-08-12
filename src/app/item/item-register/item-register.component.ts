@@ -7,6 +7,7 @@ import {
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
 import {MatSnackBar} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-item-register',
@@ -20,7 +21,9 @@ export class ItemRegisterComponent implements OnInit {
   public selectedProvider: ProviderDto;
   public formItem: FormGroup;
   units: string[] = ['UN', 'KG', 'LT'];
+  private edit = false;
 
+  // tslint:disable-next-line:new-parens
   public item: ItemDto = new class implements ItemDto {
     cost: number;
     id: number;
@@ -40,12 +43,25 @@ export class ItemRegisterComponent implements OnInit {
     private categoryService: ItemCategoryControllerService,
     private providerService: ProviderControllerService,
     private formBuilder: FormBuilder,
-    private mensageSnack: MatSnackBar
+    private mensageSnack: MatSnackBar,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.getData();
     this.formBuild();
+    this.route.params.subscribe(params => {
+
+      if (params.id !== undefined) {
+        this.edit = true;
+        this.itemService.findByIdUsingGET3(params.id).subscribe((res: ItemDto) => {
+          this.item = res;
+          this.formBuild();
+          console.log(res);
+        });
+      }
+    });
   }
   private getData() {
     this.categoryService.getAllUsingGET2().subscribe(category => {
@@ -56,6 +72,9 @@ export class ItemRegisterComponent implements OnInit {
       this.providerList = provider.content;
       this.formBuild();
     });
+  }
+  public isEdit(): boolean {
+    return this.edit;
   }
   private formBuild() {
     this.formItem = this.formBuilder.group({
@@ -109,6 +128,7 @@ export class ItemRegisterComponent implements OnInit {
       console.log(this.item);
       this.itemService.createUsingPOST3(this.item)
         .subscribe((items) => {
+            this.router.navigate(['item/list']);
             this.mensageSnack.open('Item cadastrado com sucesso!', null, {
               duration: 3000
             });
@@ -119,5 +139,48 @@ export class ItemRegisterComponent implements OnInit {
             });
           }
         );
+  }
+
+  public update() {
+    this.setItemToSave();
+
+    if (this.formItem.valid) {
+      this.itemService.updateUsingPUT3(this.item).subscribe(res => {
+        this.item = res;
+        this.router.navigate(['/item/list']);
+        this.mensageSnack.open('Insumo Atualizado Com Sucesso!', null, {
+          duration: 3000
+        });
+      }, err => {
+        this.mensageSnack.open(err.error.message, null, {
+          duration: 3000
+        });
+      });
+    } else {
+      this.launchInvalidFormMessage();
+    }
+  }
+  private launchInvalidFormMessage() {
+    this.mensageSnack.open('Formulário inválido', null, {
+      duration: 3000
+    });
+  }
+  private setItemToSave() {
+    this.item.name = this.formItem.get('name').value;
+    this.item.price = this.formItem.get('price').value;
+    this.item.cost = this.formItem.get('cost').value;
+    this.item.unit = this.formItem.get('unit').value;
+    this.item.quantity = this.formItem.get('quantity').value;
+    this.item.minQuantity = this.formItem.get('minQuantity').value;
+    this.item.shelfLife = this.formItem.get('shelfLife').value;
+    this.item.itemCategoryDto.id = this.formItem.get('itemCategoryDto').value.id;
+    this.item.providerDto.id = this.formItem.get('providerDto').value.id;
+   }
+
+  compareCategory(c1: ItemCategoryDto, c2: ItemCategoryDto): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+  compareProvider(p1: ProviderDto, p2: ProviderDto): boolean {
+    return p1 && p2 ? p1.id === p2.id : p1 === p2;
   }
 }

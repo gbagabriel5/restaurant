@@ -1,7 +1,11 @@
-
-<form [formGroup]="formItem" (ngSubmit)="save()">
+<div fxHide.xs class="container-btn-back" fxLayoutAlign="end" [fxHide]="false">
+  <a mat-button [routerLink]="['/item/list']">
+    <mat-icon>keyboard_backspace</mat-icon>Voltar</a>
+</div>
+<h3 *ngIf="!this.isEdit()" fxLayoutAlign="center">Cadastrar Insumo</h3>
+<h3 *ngIf="this.isEdit()" fxLayoutAlign="center">Editar Insumo</h3>
+<form [formGroup]="formItem">
   <div class="example-container">
-    <h1 align="center">Insumos</h1>
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name"/>
@@ -37,6 +41,7 @@
       <input matInput formControlName="shelfLife"/>
       <mat-error *ngIf="hasError('shelfLife', 'required')">Validade</mat-error>
     </mat-form-field>
+
     <label id="example-radio-group-label">Selecione a unidade de medida</label>
     <mat-radio-group
       aria-labelledby="example-radio-group-label"
@@ -49,28 +54,29 @@
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Categoria</mat-label>
-      <mat-select required placeholder="categoria" [(ngModel)]="selectedCategory" [formControl]="formItem.get('itemCategoryDto')">
+      <mat-select required placeholder="categoria" [(ngModel)]="selectedCategory" [formControl]="formItem.get('itemCategoryDto')" [compareWith]="compareCategory">
         <mat-option *ngFor="let category of categoryList" [value]="category">
           {{ category.description}}
         </mat-option>
       </mat-select>
       <mat-error class="error-form-field"
-                 *ngIf="formItem.get('itemCategoryDto').touched && hasError('itemCategoryDto', 'required')">Selecione uma
-        categoria</mat-error>
+                 *ngIf="formItem.get('itemCategoryDto').touched && hasError('itemCategoryDto', 'required')">Selecione uma categoria
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Fornecedor</mat-label>
-      <mat-select required placeholder="Fornecedor" [(ngModel)]="selectedProvider" [formControl]="formItem.get('providerDto')">
+      <mat-select required placeholder="Fornecedor" [(ngModel)]="selectedProvider" [formControl]="formItem.get('providerDto')" [compareWith]="compareProvider">
         <mat-option *ngFor="let provider of providerList" [value]="provider">
           {{ provider.name}}
         </mat-option>
       </mat-select>
       <mat-error class="error-form-field"
-                 *ngIf="formItem.get('itemCategoryDto').touched && hasError('itemCategoryDto', 'required')">Selecione uma
-        categoria</mat-error>
+                 *ngIf="formItem.get('itemCategoryDto').touched && hasError('itemCategoryDto', 'required')">Selecione uma categoria
+      </mat-error>
     </mat-form-field>
 
-    <button type="submit" mat-raised-button color="primary" [disabled]="!this.formItem.valid">Save</button>
+    <button mat-button class="btn-register" (click)="save()" cdkFocusInitial *ngIf="!this.edit">Salvar</button>
+    <button class="clickable btn-register" mat-raised-button (click)="update()" *ngIf="this.edit" id="item-btn-update">Atualizar</button>
   </div>
 </form>

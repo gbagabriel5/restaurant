@@ -197,10 +197,10 @@ export class ItemControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public findByNameUsingGET(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
-    public findByNameUsingGET(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
-    public findByNameUsingGET(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
-    public findByNameUsingGET(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public findByNameUsingGET1(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'body', reportProgress?: boolean): Observable<PageItemDto>;
+    public findByNameUsingGET1(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageItemDto>>;
+    public findByNameUsingGET1(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageItemDto>>;
+    public findByNameUsingGET1(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 

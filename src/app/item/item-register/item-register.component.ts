@@ -127,8 +127,8 @@ export class ItemRegisterComponent implements OnInit {
       this.setItem();
       console.log(this.item);
       this.itemService.createUsingPOST3(this.item)
-        .subscribe((items) => {
-            this.router.navigate(['item/list']);
+        .subscribe(() => {
+            this.router.navigate(['/item/list']);
             this.mensageSnack.open('Item cadastrado com sucesso!', null, {
               duration: 3000
             });

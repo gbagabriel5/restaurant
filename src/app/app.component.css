@@ -1,0 +1,25 @@
+.mat-toolbar{
+  background: #8f47fa;
+  color: white;
+}
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-radio-group {
+  display: block;
+  border: 1px solid #555;
+  margin: 20px;
+  padding: 10px;
+}
+
+a{
+  padding: 0px 0px 12px 14px;
+  display: block;
+  color: white;
+  text-decoration: none;
+}

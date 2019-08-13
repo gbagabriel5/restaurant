@@ -1,30 +1,85 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
+<div class="content">
+  <div>
+    <div class="loading-shade" *ngIf="isLoadingResults">
+      <mat-spinner></mat-spinner>
+    </div>
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+    <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> Id. </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container>
+      <div fxFlexFill fxLayoutAlign="center center">
+        <div class="mb-20 pt20" fxFlex>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
+          <div >
+            <div fxHide.xs class="container-btn-new" fxLayoutAlign="end">
+              <button mat-raised-button class="btn-new" [routerLink]="['/client/register']">{{'Cadastrar'}}</button>
+            </div>
+            <h3 fxLayoutAlign="start" >{{'Cliente'}}</h3>
+          </div>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="rg">
-    <th mat-header-cell *matHeaderCellDef> Rg </th>
-    <td mat-cell *matCellDef="let element"> {{element.rg}} </td>
-  </ng-container>
+          <div class="mat-elevation-z2" fxLayout="column">
+            <div mat-header-row class="table-header" fxFlex fxLayout="row">
+              <div [fxFlex]="30" class="mt10 mr10 ml10">
+                <mat-form-field appearance="outline" class="select-size-list">
+                  <mat-select [(ngModel)]="selectedSizePage" (selectionChange)="changePageSize($event)">
+                    <mat-option *ngFor="let pageOption of pageSizeOptions" [value]="pageOption">
+                      {{pageOption}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span class="label-select-pagination mt5 mr5 ml5">Clientes por página</span>
+              </div>
+              <div [fxFlex]="70" class="mt10 mr10 ml10" fxLayoutAlign="end">
+                <mat-form-field appearance="outline" [fxFlex]="50">
+                  <mat-label>{{'Procurar'}}</mat-label>
+                  <input matInput #searhParamElement  (keyup.enter)="applyFilter($event.target.value)"
+                         class="search-input">
+                  <mat-icon matPrefix matSuffix id="searchIcon" class="clickable" (click)="applyFilter(searhParamElement.value)" style="color: #4c9cfa">search</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+            <table mat-table [dataSource]="client"
+                   matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+              <!-- Number Column -->
+              <ng-container matColumnDef="id">
+                <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let row">{{row.id}}</td>
+              </ng-container>
 
+              <ng-container matColumnDef="name">
+                <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>Nome</th>
+                <td mat-cell *matCellDef="let row">{{row.name}}</td>
+              </ng-container>
 
+              <ng-container matColumnDef="rg">
+                <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>RG</th>
+                <td mat-cell *matCellDef="let row">{{row.rg}}</td>
+              </ng-container>
 
+              <ng-container matColumnDef="cpf">
+                <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>CPF</th>
+                <td mat-cell *matCellDef="let row">{{row.cpf}}</td>
+              </ng-container>
 
+              <ng-container matColumnDef="options">
+                <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row" class="td-content"><mat-icon [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row: row}">more_vert</mat-icon></td>
+                <mat-menu #menu="matMenu">
+                  <ng-template matMenuContent let-row="row">
+                    <button mat-menu-item [routerLink]="['/client/update', row.id]">
+                      {{'Edit'}}
+                    </button>
+                    <button mat-menu-item (click)="deleteCliente(row);">{{'Delete'}}</button>
+                  </ng-template>
+                </mat-menu>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="resultsLength" [pageSize]="selectedSizePage"></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

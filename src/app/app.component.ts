@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatSidenav} from '@angular/material';
 
 export interface Pageable {
   content: Array<any>;
@@ -10,6 +11,7 @@ export interface Pageable {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  @ViewChild(MatSidenav, {static: false}) sidenav: MatSidenav;
 
   constructor() {
   }

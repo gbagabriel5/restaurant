@@ -11,7 +11,7 @@
  */
 
 
-export interface ClientDto { 
+export interface ClientDto {
     adress?: string;
     cpf?: string;
     fone?: string;

@@ -76,7 +76,7 @@
       </mat-error>
     </mat-form-field>
 
-    <button mat-button class="btn-register" (click)="save()" cdkFocusInitial *ngIf="!this.edit">Salvar</button>
-    <button class="clickable btn-register" mat-raised-button (click)="update()" *ngIf="this.edit" id="item-btn-update">Atualizar</button>
+    <button mat-button class="btn-register" mat-raised-button color="primary" (click)="save()" cdkFocusInitial *ngIf="!this.edit">Salvar</button>
+    <button class="clickable btn-register" mat-raised-button color="primary" (click)="update()" *ngIf="this.edit" id="item-btn-update">Atualizar</button>
   </div>
 </form>

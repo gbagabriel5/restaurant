@@ -4,16 +4,10 @@
          *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
-
-    <div class="mb-20" fxFlex fxLayout="row" fxLayout.lt-md="column">
-      <div fxFlexFill fxLayoutAlign="center center">
-        <div class="mb-20 pt20" fxFlex>
-          <div >
-            <div fxHide.xs class="container-btn-new" fxLayoutAlign="end">
-              <button mat-raised-button class="btn-new" [routerLink]="['/item/register']">{{'Cadastrar'}}</button>
-            </div>
-            <h3 fxLayoutAlign="start" >{{'Insumos'}}</h3>
-          </div>
+    <div fxLayout="row" fxLayoutAlign="space-between end" style="margin-bottom: 15px">
+      <h3>Insumos</h3>
+      <button mat-raised-button class="btn-new" [routerLink]="['/item/register']">{{'Cadastrar'}}</button>
+    </div>
 
           <div class="mat-elevation-z2" fxLayout="column">
             <div mat-header-row class="table-header" fxFlex fxLayout="row">
@@ -25,7 +19,7 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <span class="label-select-pagination mt5 mr5 ml5">Itens por página</span>
+                <span class="label-select-pagination mt5 mr5 ml5">Insumos por página</span>
               </div>
               <div [fxFlex]="70" class="mt10 mr10 ml10" fxLayoutAlign="end">
                 <mat-form-field appearance="outline" [fxFlex]="50">
@@ -36,7 +30,7 @@
                 </mat-form-field>
               </div>
             </div>
-
+            <div class="example-container mat-elevation-z8">
             <table mat-table [dataSource]="item" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
               <ng-container matColumnDef="id">
                 <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>ID</th>
@@ -81,13 +75,11 @@
                   </ng-template>
                 </mat-menu>
               </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+            </div>
             <mat-paginator [length]="resultsLength" [pageSize]="selectedSizePage"></mat-paginator>
           </div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

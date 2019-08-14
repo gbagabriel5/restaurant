@@ -29,6 +29,9 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app.routing.module';
 import {ErrorsModule} from './errors/errors.module';
 import {MaterialModule} from './material-module';
+import {ProductListComponent} from './product/product-list/product-list.component';
+import {ProductRegisterUpdateComponent} from './product/product-register-update/product-register-update.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -37,7 +40,9 @@ import {MaterialModule} from './material-module';
     ClientsListComponent,
     ClientRegisterComponent,
     ItemListComponent,
-    ItemRegisterComponent
+    ItemRegisterComponent,
+    ProductListComponent,
+    ProductRegisterUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,8 @@ import {MaterialModule} from './material-module';
     ExtendedModule,
     AppRoutingModule,
     ErrorsModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

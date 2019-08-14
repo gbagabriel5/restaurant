@@ -1,20 +1,21 @@
 <mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" style="background: #2B2B2B">
-      <button mat-button (click)="sidenav.toggle()" style="color: white; margin: 25px;margin-top: 15px;"><mat-icon>fastfood</mat-icon></button>
+  <mat-sidenav #sidenav mode="side">
+    <div fxLayout="column" fxLayoutAlign="end center" >
+      <button mat-button (click)="sidenav.toggle()"><mat-icon svgIcon="store"></mat-icon></button>
+      <h5 style="color: white;">Food</h5>
+    </div>
+    <mat-divider style="background: white; height: 2px"></mat-divider>
+    <h5 style="color: white; text-align: center; margin-top: 10px">Menu</h5>
       <mat-list>
-          <mat-list-item>
-            <a [routerLink]="['/client/list']"><span>Cliente</span></a>
-          </mat-list-item>
-          <mat-list-item>
-            <a [routerLink]="['/item/list']"><span>Insumos</span></a>
-          </mat-list-item>
+            <a [routerLink]="['/client/list']"><span><mat-icon svgIcon="clients"></mat-icon> Cliente</span></a>
+            <a [routerLink]="['/item/list']"><span><mat-icon svgIcon="food"></mat-icon> Insumos</span></a>
+            <a [routerLink]="['/product/list']"><mat-icon svgIcon="estoque"></mat-icon><span> Produtos</span></a>
       </mat-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <mat-toolbar>
       <button mat-button *ngIf="!sidenav.opened" (click)="sidenav.toggle()"><mat-icon>fastfood</mat-icon></button>
-      Restaurante
     </mat-toolbar>
 
     <router-outlet></router-outlet>

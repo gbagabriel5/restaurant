@@ -40,7 +40,7 @@ h3 {
   font-family: "Titillium SemiBold";
   font-size: 24px;
   color: rgba(51, 51, 51, 1);
-  margin-top: 0px;
+  margin: 0;
 }
 
 .mat-form-field {
@@ -164,4 +164,10 @@ h3 {
 
 :host ::ng-deep .select-size-list .mat-select-value-text {
   padding-left: 0px;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+  background: white;
 }

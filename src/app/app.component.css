@@ -1,6 +1,10 @@
 .mat-toolbar{
-  background: #8f47fa;
+  background: #dd4b39;
   color: white;
+}
+.mat-sidenav{
+  background: #2B2B2B;
+  padding: 15px;
 }
 .example-container {
   position: absolute;

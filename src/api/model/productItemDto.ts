@@ -10,9 +10,11 @@
  * Do not edit the class manually.
  */
 import { ItemDto } from './itemDto';
+import { ProductDto } from './productDto';
 
 
 export interface ProductItemDto { 
     id?: number;
-    item?: ItemDto;
+    itemDto?: ItemDto;
+    productDto?: ProductDto;
 }

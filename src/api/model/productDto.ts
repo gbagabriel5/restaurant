@@ -14,14 +14,14 @@ import { ProductItemDto } from './productItemDto';
 
 
 export interface ProductDto { 
+    control?: string;
     cost?: number;
     id?: number;
     minQuantity?: number;
     name?: string;
     price?: number;
     productCategoryDto?: ProductCategoryDto;
-    productItem?: Array<ProductItemDto>;
+    productItemDtos?: Array<ProductItemDto>;
     quantity?: number;
     status?: string;
-    unit?: string;
 }

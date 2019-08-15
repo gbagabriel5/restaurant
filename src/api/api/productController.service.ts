@@ -187,6 +187,70 @@ export class ProductControllerService {
     }
 
     /**
+     * Find Item by name
+     * 
+     * @param count count
+     * @param direction direction
+     * @param name name
+     * @param orderby orderby
+     * @param page page
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findByNameUsingGET2(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'body', reportProgress?: boolean): Observable<PageProductDto>;
+    public findByNameUsingGET2(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<PageProductDto>>;
+    public findByNameUsingGET2(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<PageProductDto>>;
+    public findByNameUsingGET2(count?: number, direction?: string, name?: string, orderby?: string, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (count !== undefined && count !== null) {
+            queryParameters = queryParameters.set('count', <any>count);
+        }
+        if (direction !== undefined && direction !== null) {
+            queryParameters = queryParameters.set('direction', <any>direction);
+        }
+        if (name !== undefined && name !== null) {
+            queryParameters = queryParameters.set('name', <any>name);
+        }
+        if (orderby !== undefined && orderby !== null) {
+            queryParameters = queryParameters.set('orderby', <any>orderby);
+        }
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<PageProductDto>(`${this.basePath}/product/getByName`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * List all
      * 
      * @param count count

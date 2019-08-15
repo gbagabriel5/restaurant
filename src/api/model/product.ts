@@ -14,6 +14,7 @@ import { ProductItem } from './productItem';
 
 
 export interface Product { 
+    control?: string;
     cost?: number;
     id?: number;
     minQuantity?: number;
@@ -23,5 +24,4 @@ export interface Product {
     productItems?: Array<ProductItem>;
     quantity?: number;
     status?: string;
-    unit?: string;
 }

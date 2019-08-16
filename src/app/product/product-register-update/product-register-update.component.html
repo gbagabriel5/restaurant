@@ -68,7 +68,7 @@
           [cdkDropListConnectedTo]="[doneList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of items" cdkDrag>{{item.name}}</div>
+          <div class="example-box" *ngFor="let item of items" cdkDrag [cdkDragData]="item">{{item.name}} <strong>R${{item.price}}</strong></div>
         </div>
       </div>
       </div>
@@ -81,8 +81,9 @@
           [cdkDropListData]="fichaTecnica"
           [cdkDropListConnectedTo]="[todoList]"
           class="example-list"
-          (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let ficha of fichaTecnica" cdkDrag>{{ficha.name}}</div>
+          (cdkDropListDropped)="drop($event)"
+          [cdkDropListEnterPredicate]="alreadyIntoArray">
+          <div class="example-box" *ngFor="let ficha of fichaTecnica" cdkDrag>{{ficha.name}} <strong>R${{ficha.price}}</strong></div>
         </div>
       </div>
       </div>

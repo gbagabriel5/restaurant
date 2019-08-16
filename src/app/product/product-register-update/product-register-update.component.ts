@@ -11,7 +11,7 @@ import {
 import {MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-product-register-update',
@@ -57,6 +57,9 @@ export class ProductRegisterUpdateComponent implements OnInit {
         this.edit = true;
         this.productService.findByIdUsingGET5(params.id).subscribe((res: ProductDto) => {
           this.product = res;
+          for (const ficha of this.product.productItemDtos){
+            this.fichaTecnica.push(ficha.itemDto);
+          }
           this.formBuild();
           console.log(res);
         });
@@ -90,10 +93,10 @@ export class ProductRegisterUpdateComponent implements OnInit {
         RxwebValidators.required()
       ])],
       quantity: [this.product.quantity, Validators.compose([
-        RxwebValidators.required()
+        this.product.control === 'Sim' ? RxwebValidators.required() : null
       ])],
       minQuantity: [this.product.minQuantity, Validators.compose([
-        RxwebValidators.required()
+        this.product.control === 'Sim' ? RxwebValidators.required() : null
       ])],
       productCategoryDto: [this.product.productCategoryDto, Validators.compose([
         RxwebValidators.required()
@@ -110,6 +113,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
     this.product.minQuantity = this.productForm.value.minQuantity;
     this.product.minQuantity = this.productForm.value.minQuantity;
     this.product.productCategoryDto = this.productForm.value.productCategoryDto;
+    this.setItemsInProduct();
   }
   public hasError = (controlName: string, errorName: string) => {
     return this.productForm.get(controlName).hasError(errorName);
@@ -117,23 +121,23 @@ export class ProductRegisterUpdateComponent implements OnInit {
   public save() {
     this.setProduct();
     console.log(this.product);
-    // this.productService.createUsingPOST5(this.product)
-    //   .subscribe(() => {
-    //       this.router.navigate(['/product/list']);
-    //       this.mensageSnack.open('Produto cadastrado com sucesso!', null, {
-    //         duration: 3000
-    //       });
-    //       this.productForm.reset();
-    //     }, err => {
-    //       this.mensageSnack.open(err.error.message, null, {
-    //         duration: 3000
-    //       });
-    //     }
-    //   );
+    this.productService.createUsingPOST5(this.product)
+      .subscribe(() => {
+          this.router.navigate(['/product/list']);
+          this.mensageSnack.open('Produto cadastrado com sucesso!', null, {
+            duration: 3000
+          });
+          this.productForm.reset();
+        }, err => {
+          this.mensageSnack.open(err.message, null, {
+            duration: 3000
+          });
+        }
+      );
   }
 
   public update() {
-    this.setProductToSave();
+    this.setProduct();
 
     if (this.productForm.valid) {
       this.productService.updateUsingPUT5(this.product).subscribe(res => {
@@ -156,18 +160,39 @@ export class ProductRegisterUpdateComponent implements OnInit {
       duration: 3000
     });
   }
-  private setProductToSave() {
-    this.product.name = this.productForm.get('name').value;
-    this.product.price = this.productForm.get('price').value;
-    this.product.cost = this.productForm.get('cost').value;
-    this.product.control = this.productForm.get('control').value;
-    this.product.quantity = this.productForm.get('quantity').value;
-    this.product.minQuantity = this.productForm.get('minQuantity').value;
-    this.product.productCategoryDto.id = this.productForm.get('productCategoryDto').value.id;
-  }
-
   compareCategory(pc1: ProductCategoryDto, pc2: ProductCategoryDto): boolean {
     return pc1 && pc2 ? pc1.id === pc2.id : pc1 === pc2;
+  }
+  setItemsInProduct() {
+    this.product.productItemDtos = [];
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.fichaTecnica.length; i++) {
+      if (this.product.productItemDtos.find(
+        (products) => products.itemDto.id === this.fichaTecnica[i].id) === undefined) {
+        this.product.productItemDtos.push({
+          productDto: {
+            id: (this.edit) ? this.product.id : null,
+            name: (this.edit) ? this.product.name : null,
+            price: (this.edit) ? this.product.price : null,
+            cost: (this.edit) ? this.product.cost : null,
+            control: (this.edit) ? this.product.control : null,
+            quantity: (this.edit) ? this.product.quantity : null,
+            minQuantity: (this.edit) ? this.product.minQuantity : null,
+          },
+          id: null,
+          // productDto: this.product,
+          itemDto: this.fichaTecnica[i]
+        });
+      }
+    }
+  }
+
+  alreadyIntoArray(item: CdkDrag<ItemDto>, array: CdkDropList<ItemDto[]>) {
+    if (array.data.find((insumos) => insumos.id === item.data.id)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   drop(event: CdkDragDrop<string[]>) {

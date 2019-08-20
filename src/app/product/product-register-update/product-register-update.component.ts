@@ -35,7 +35,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
     name: string;
     price: number;
     productCategoryDto: ProductCategoryDto;
-    productItemDtos: ProductItemDto[];
+    productItemDtos: ProductItemDto[] = [];
     control: string;
     quantity: number;
     status: string;
@@ -55,7 +55,6 @@ export class ProductRegisterUpdateComponent implements OnInit {
     this.getData();
     this.formBuild();
     this.route.params.subscribe(params => {
-
       if (params.id !== undefined) {
         this.edit = true;
         this.productService.findByIdUsingGET5(params.id).subscribe((res: ProductDto) => {
@@ -104,7 +103,6 @@ export class ProductRegisterUpdateComponent implements OnInit {
   }
   private setProduct() {
     this.product = Object.assign(this.product, this.productForm.value);
-    // this.setItemsInProduct();
   }
   public hasError = (controlName: string, errorName: string) => {
     return this.productForm.get(controlName).hasError(errorName);
@@ -154,12 +152,9 @@ export class ProductRegisterUpdateComponent implements OnInit {
   compareCategory(pc1: ProductCategoryDto, pc2: ProductCategoryDto): boolean {
     return pc1 && pc2 ? pc1.id === pc2.id : pc1 === pc2;
   }
-  setItemsInProduct(qtd: number) {
-    this.product.productItemDtos = [];
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.fichaTecnica.length; i++) {
+  setItemsInProduct(item: ProductItemDto, qtd: number) {
       if (this.product.productItemDtos.find(
-        (products) => products.itemDto.id === this.fichaTecnica[i].id) === undefined) {
+        (products) => products.itemDto.id === item.id) === undefined) {
         this.product.productItemDtos.push({
           productDto: {
             id: (this.edit) ? this.product.id : null,
@@ -171,11 +166,9 @@ export class ProductRegisterUpdateComponent implements OnInit {
             minQuantity: (this.edit) ? this.product.minQuantity : null,
           },
           id: null,
-          // productDto: this.product,
-          itemDto: this.fichaTecnica[i],
+          itemDto: item,
           qtde: qtd
         });
-      }
     }
   }
 
@@ -188,25 +181,25 @@ export class ProductRegisterUpdateComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      event.item.data = this.openDialog(event.item.data);
-      transferArrayItem(event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex);
+    if (event.previousContainer !== event.container) {
+      console.log(event);
+      this.openDialog(event.item.data, event);
     }
   }
 
-  openDialog(item: ProductItemDto): ProductItemDto {
+  openDialog(item: ProductItemDto, event: CdkDragDrop<string[]>) {
     const dialogRef = this.dialog.open(ProductDialogComponent, {
       width: '250px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.setItemsInProduct(result);
+      if (result.status !== 'CANCEL') {
+        transferArrayItem(event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.container.data.length);
+        this.setItemsInProduct(item, result.qtd);
+      }
     });
-    return item;
   }
 }

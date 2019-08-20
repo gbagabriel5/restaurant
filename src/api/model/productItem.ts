@@ -17,4 +17,5 @@ export interface ProductItem {
     id?: number;
     item?: Item;
     product?: Product;
+    qtde?: number;
 }

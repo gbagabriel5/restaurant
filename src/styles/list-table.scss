@@ -5,32 +5,32 @@
   table {
     width: 100%;
   }
-  
+
   h3 {
     font-family: "Titillium SemiBold";
     font-size: 24px;
     color: rgba(51, 51, 51, 1);
     margin-top: 0px;
   }
-  
+
   .mat-form-field {
     font-size: 14px;
     width: 100%;
   }
-  
+
   .table-header {
     background-color: #bdc3c72e;
   }
-  
+
   .search-input {
     border: 1px rgba(13, 23, 33, 0.1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   }
-  
+
   .container-btn-new{
     justify-content: right;
   }
-  
+
   .label-select-pagination{
     color: rgba(144, 145, 145, 1);
     font-family: "Titillium Regular";
@@ -50,7 +50,7 @@
     font-family: "Titillium Regular";
     font-size: 16px;
   }
-  
+
   .btn-new {
     background-image: linear-gradient(to top, rgba(255, 194, 0, 1), rgba(253, 214, 86, 1));
     color: rgba(255, 255, 255, 1);
@@ -73,7 +73,7 @@
     text-align: center;
     text-transform: uppercase;
   }
-  
+
   .loading-shade {
     position: absolute;
     top: 0;
@@ -86,17 +86,17 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .rate-limit-reached {
     color: #980000;
     max-width: 360px;
     text-align: center;
   }
-  
+
   .main-drawer{
     padding: 35px;
   }
-  
+
   .content-drawer{
     padding: 10px;
   }
@@ -104,7 +104,7 @@
   .th-column{
     width: 25%;
   }
-  
+
   #toolbar-register-company, #toolbar-user-profile{
     font-family: "Titillium SemiBold";
     font-size: 18px;

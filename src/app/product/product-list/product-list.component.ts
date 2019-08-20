@@ -14,7 +14,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatDrawer, {static: true}) drawer: MatDrawer;
   public edit = false;
   public product: ProductDto[];
-  public displayedColumns: string[] = ['id', 'name', 'price', 'cost', 'quantity', 'options'];
+  public displayedColumns: string[] = ['id', 'name', 'price', 'cost', 'productCategoryDto', 'options'];
   public tdWidth = 100 / (this.displayedColumns.length - 1);
   public pageSizeOptions: number[] = [5, 10, 25, 50];
   public selectedSizePage = 5;

@@ -8,10 +8,11 @@ import {
   ProductControllerService,
   ProductDto, ProductItemDto,
 } from '../../../api';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {ProductDialogComponent} from "../product-dialog/product-dialog.component";
 
 @Component({
   selector: 'app-product-register-update',
@@ -25,6 +26,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
   public edit = false;
   public items: ItemDto[];
   public fichaTecnica: ItemDto[] = [];
+  public itemProduto: ProductItemDto[];
   // tslint:disable-next-line:new-parens
   private product: ProductDto = new class implements ProductDto {
     cost: number;
@@ -45,7 +47,8 @@ export class ProductRegisterUpdateComponent implements OnInit {
               private formBuilder: FormBuilder,
               private mensageSnack: MatSnackBar,
               private route: ActivatedRoute,
-              private router: Router
+              private router: Router,
+              public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -92,28 +95,16 @@ export class ProductRegisterUpdateComponent implements OnInit {
       control: [this.product.control ? this.product.control : 'Não', Validators.compose([
         RxwebValidators.required()
       ])],
-      quantity: [this.product.quantity, Validators.compose([
-        this.product.control === 'Sim' ? RxwebValidators.required() : null
-      ])],
-      minQuantity: [this.product.minQuantity, Validators.compose([
-        this.product.control === 'Sim' ? RxwebValidators.required() : null
-      ])],
+      quantity: [this.product.quantity],
+      minQuantity: [this.product.minQuantity],
       productCategoryDto: [this.product.productCategoryDto, Validators.compose([
-        RxwebValidators.required()
+      RxwebValidators.required()
       ])],
     });
   }
   private setProduct() {
-    this.product.id = null;
-    this.product.name = this.productForm.value.name;
-    this.product.price = this.productForm.value.price;
-    this.product.cost = this.productForm.value.cost;
-    this.product.control = this.productForm.value.control;
-    this.product.quantity = this.productForm.value.quantity;
-    this.product.minQuantity = this.productForm.value.minQuantity;
-    this.product.minQuantity = this.productForm.value.minQuantity;
-    this.product.productCategoryDto = this.productForm.value.productCategoryDto;
-    this.setItemsInProduct();
+    this.product = Object.assign(this.product, this.productForm.value);
+    // this.setItemsInProduct();
   }
   public hasError = (controlName: string, errorName: string) => {
     return this.productForm.get(controlName).hasError(errorName);
@@ -121,19 +112,19 @@ export class ProductRegisterUpdateComponent implements OnInit {
   public save() {
     this.setProduct();
     console.log(this.product);
-    this.productService.createUsingPOST5(this.product)
-      .subscribe(() => {
-          this.router.navigate(['/product/list']);
-          this.mensageSnack.open('Produto cadastrado com sucesso!', null, {
-            duration: 3000
-          });
-          this.productForm.reset();
-        }, err => {
-          this.mensageSnack.open(err.message, null, {
-            duration: 3000
-          });
-        }
-      );
+    // this.productService.createUsingPOST5(this.product)
+    //   .subscribe(() => {
+    //       this.router.navigate(['/product/list']);
+    //       this.mensageSnack.open('Produto cadastrado com sucesso!', null, {
+    //         duration: 3000
+    //       });
+    //       this.productForm.reset();
+    //     }, err => {
+    //       this.mensageSnack.open(err.message, null, {
+    //         duration: 3000
+    //       });
+    //     }
+    //   );
   }
 
   public update() {
@@ -163,7 +154,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
   compareCategory(pc1: ProductCategoryDto, pc2: ProductCategoryDto): boolean {
     return pc1 && pc2 ? pc1.id === pc2.id : pc1 === pc2;
   }
-  setItemsInProduct() {
+  setItemsInProduct(qtd: number) {
     this.product.productItemDtos = [];
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.fichaTecnica.length; i++) {
@@ -181,7 +172,8 @@ export class ProductRegisterUpdateComponent implements OnInit {
           },
           id: null,
           // productDto: this.product,
-          itemDto: this.fichaTecnica[i]
+          itemDto: this.fichaTecnica[i],
+          qtde: qtd
         });
       }
     }
@@ -199,10 +191,22 @@ export class ProductRegisterUpdateComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      event.item.data = this.openDialog(event.item.data);
       transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex);
     }
+  }
+
+  openDialog(item: ProductItemDto): ProductItemDto {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.setItemsInProduct(result);
+    });
+    return item;
   }
 }

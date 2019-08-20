@@ -17,4 +17,5 @@ export interface ProductItemDto {
     id?: number;
     itemDto?: ItemDto;
     productDto?: ProductDto;
+    qtde?: number;
 }

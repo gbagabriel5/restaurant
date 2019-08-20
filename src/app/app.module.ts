@@ -4,20 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatFormFieldModule,
-  MatTableModule,
-  MatButtonModule,
-  MatInputModule,
-  MatSelectModule,
-  MatRadioModule,
-  MatSnackBarModule,
-  MatPaginatorModule,
-  MatMenuModule,
-  MatIconModule,
-  MatProgressSpinnerModule,
-  MatSortModule
-} from '@angular/material';
 import {ClientsListComponent} from './client/clients-list/clients-list.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ClientRegisterComponent} from './client/client-register/client-register.component';
@@ -32,6 +18,7 @@ import {MaterialModule} from './material-module';
 import {ProductListComponent} from './product/product-list/product-list.component';
 import {ProductRegisterUpdateComponent} from './product/product-register-update/product-register-update.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {ProductDialogComponent} from './product/product-dialog/product-dialog.component';
 
 
 @NgModule({
@@ -42,7 +29,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ItemListComponent,
     ItemRegisterComponent,
     ProductListComponent,
-    ProductRegisterUpdateComponent
+    ProductRegisterUpdateComponent,
+    ProductDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +51,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ProductDialogComponent]
 })
 export class AppModule { }

@@ -26,7 +26,7 @@
             <mat-label>{{'Procurar'}}</mat-label>
             <input matInput #searhParamElement  (keyup.enter)="applyFilter($event.target.value)"
                    class="search-input">
-            <mat-icon matPrefix matSuffix id="searchIcon" class="clickable" (click)="applyFilter(searhParamElement.value)" style="color: #4c9cfa">search</mat-icon>
+            <mat-icon matPrefix matSuffix id="searchIcon" class="clickable" (click)="applyFilter(searhParamElement.value)" style="color: #dd4b39">search</mat-icon>
           </mat-form-field>
         </div>
       </div>
@@ -52,9 +52,9 @@
             <td mat-cell *matCellDef="let row">R${{row.cost}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="quantity">
-            <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>Qtde.</th>
-            <td mat-cell *matCellDef="let row">{{row.quantity}}</td>
+          <ng-container matColumnDef="productCategoryDto">
+            <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let row">{{row.productCategoryDto.description}}</td>
           </ng-container>
 
           <ng-container matColumnDef="options">

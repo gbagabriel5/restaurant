@@ -10,7 +10,7 @@ import {
 } from '../../../api';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RxwebValidators} from '@rxweb/reactive-form-validators';
+import {even, RxwebValidators} from '@rxweb/reactive-form-validators';
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ProductDialogComponent} from "../product-dialog/product-dialog.component";
 
@@ -58,6 +58,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
       if (params.id !== undefined) {
         this.edit = true;
         this.productService.findByIdUsingGET5(params.id).subscribe((res: ProductDto) => {
+          console.log(res);
           this.product = res;
           for (const ficha of this.product.productItemDtos){
             this.fichaTecnica.push(ficha.itemDto);
@@ -67,6 +68,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
         });
       }
     });
+    console.log(this.product);
   }
 
   private getData() {
@@ -110,24 +112,23 @@ export class ProductRegisterUpdateComponent implements OnInit {
   public save() {
     this.setProduct();
     console.log(this.product);
-    // this.productService.createUsingPOST5(this.product)
-    //   .subscribe(() => {
-    //       this.router.navigate(['/product/list']);
-    //       this.mensageSnack.open('Produto cadastrado com sucesso!', null, {
-    //         duration: 3000
-    //       });
-    //       this.productForm.reset();
-    //     }, err => {
-    //       this.mensageSnack.open(err.message, null, {
-    //         duration: 3000
-    //       });
-    //     }
-    //   );
+    this.productService.createUsingPOST5(this.product)
+      .subscribe(() => {
+          this.router.navigate(['/product/list']);
+          this.mensageSnack.open('Produto cadastrado com sucesso!', null, {
+            duration: 3000
+          });
+          this.productForm.reset();
+        }, err => {
+          this.mensageSnack.open(err.message, null, {
+            duration: 3000
+          });
+        }
+      );
   }
 
   public update() {
     this.setProduct();
-
     if (this.productForm.valid) {
       this.productService.updateUsingPUT5(this.product).subscribe(res => {
         this.product = res;
@@ -182,8 +183,16 @@ export class ProductRegisterUpdateComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer !== event.container) {
-      console.log(event);
-      this.openDialog(event.item.data, event);
+      if (event.container.id === 'cdk-drop-list-1')  {
+        console.log(event);
+        this.openDialog(event.item.data, event);
+      } else {
+        transferArrayItem(event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex);
+        this.removeItemFromProduct(event.currentIndex);
+      }
     }
   }
 
@@ -194,6 +203,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.status !== 'CANCEL') {
+        console.log(event);
         transferArrayItem(event.previousContainer.data,
           event.container.data,
           event.previousIndex,
@@ -201,5 +211,10 @@ export class ProductRegisterUpdateComponent implements OnInit {
         this.setItemsInProduct(item, result.qtd);
       }
     });
+  }
+
+  removeItemFromProduct(index: number) {
+    this.product.productItemDtos.splice(index, 1);
+    console.log(this.product);
   }
 }

@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'product/list', component: ProductListComponent},
   { path: 'product/register', component: ProductRegisterUpdateComponent},
   { path: 'product/update/:id', component: ProductRegisterUpdateComponent},
-  { path: '**', component: ClientsListComponent}
+  { path: '**', component: ProductListComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -12,7 +12,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {even, RxwebValidators} from '@rxweb/reactive-form-validators';
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {ProductDialogComponent} from "../product-dialog/product-dialog.component";
+import {ProductDialogComponent} from '../product-dialog/product-dialog.component';
 
 @Component({
   selector: 'app-product-register-update',
@@ -60,7 +60,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
         this.productService.findByIdUsingGET5(params.id).subscribe((res: ProductDto) => {
           console.log(res);
           this.product = res;
-          for (const ficha of this.product.productItemDtos){
+          for (const ficha of this.product.productItemDtos) {
             this.fichaTecnica.push(ficha.itemDto);
           }
           this.formBuild();
@@ -103,9 +103,9 @@ export class ProductRegisterUpdateComponent implements OnInit {
       ])],
     });
   }
-  private setProduct() {
-    this.product = Object.assign(this.product, this.productForm.value);
-  }
+  // private setProduct() {
+  //   this.product = Object.assign(this.product, this.productForm.value);
+  // }
   public hasError = (controlName: string, errorName: string) => {
     return this.productForm.get(controlName).hasError(errorName);
   }
@@ -128,10 +128,12 @@ export class ProductRegisterUpdateComponent implements OnInit {
   }
 
   public update() {
+    console.log(this.product);
     this.setProduct();
+    console.log(this.product);
     if (this.productForm.valid) {
       this.productService.updateUsingPUT5(this.product).subscribe(res => {
-        this.product = res;
+        // this.product = res;
         this.router.navigate(['/product/list']);
         this.mensageSnack.open('Produto Atualizado Com Sucesso!', null, {
           duration: 3000
@@ -173,6 +175,16 @@ export class ProductRegisterUpdateComponent implements OnInit {
     }
   }
 
+  private setProduct() {
+    this.product.name = this.productForm.get('name').value;
+    this.product.price = this.productForm.get('price').value;
+    this.product.cost = this.productForm.get('cost').value;
+    this.product.control = this.productForm.get('control').value;
+    this.product.quantity = this.productForm.get('quantity').value;
+    this.product.minQuantity = this.productForm.get('minQuantity').value;
+    this.product.productCategoryDto.id = this.productForm.get('productCategoryDto').value.id;
+  }
+
   alreadyIntoArray(item: CdkDrag<ItemDto>, array: CdkDropList<ItemDto[]>) {
     if (array.data.find((insumos) => insumos.id === item.data.id)) {
       return false;
@@ -183,7 +195,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer !== event.container) {
-      if (event.container.id === 'cdk-drop-list-1')  {
+      if (event.container.id !== 'ck1')  {
         console.log(event);
         this.openDialog(event.item.data, event);
       } else {
@@ -191,7 +203,9 @@ export class ProductRegisterUpdateComponent implements OnInit {
           event.container.data,
           event.previousIndex,
           event.currentIndex);
-        this.removeItemFromProduct(event.currentIndex);
+        console.log(event);
+        this.removeItemFromProduct(event.previousIndex);
+        console.log(this.product);
       }
     }
   }

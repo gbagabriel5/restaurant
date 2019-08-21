@@ -27,6 +27,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
   public items: ItemDto[];
   public fichaTecnica: ItemDto[] = [];
   public itemProduto: ProductItemDto[];
+  public custo;
   // tslint:disable-next-line:new-parens
   private product: ProductDto = new class implements ProductDto {
     cost: number;
@@ -54,6 +55,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
   ngOnInit() {
     this.getData();
     this.formBuild();
+    console.log(this.product);
     this.route.params.subscribe(params => {
       if (params.id !== undefined) {
         this.edit = true;
@@ -178,7 +180,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
   private setProduct() {
     this.product.name = this.productForm.get('name').value;
     this.product.price = this.productForm.get('price').value;
-    this.product.cost = this.productForm.get('cost').value;
+    // this.product.cost = this.productForm.get('cost').value;
     this.product.control = this.productForm.get('control').value;
     this.product.quantity = this.productForm.get('quantity').value;
     this.product.minQuantity = this.productForm.get('minQuantity').value;
@@ -210,7 +212,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
     }
   }
 
-  openDialog(item: ProductItemDto, event: CdkDragDrop<string[]>) {
+  openDialog(item, event: CdkDragDrop<string[]>) {
     const dialogRef = this.dialog.open(ProductDialogComponent, {
       width: '250px'
     });
@@ -223,6 +225,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
           event.previousIndex,
           event.container.data.length);
         this.setItemsInProduct(item, result.qtd);
+        // this.product.cost = result * item.price;
       }
     });
   }

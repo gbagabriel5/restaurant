@@ -13,15 +13,15 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
-      <mat-label>Preço</mat-label>
-      <input matInput formControlName="price"/>
-      <mat-error *ngIf="hasError('price', 'required')">Informe o Preço</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Custo</mat-label>
       <input matInput formControlName="cost"/>
       <mat-error *ngIf="hasError('cost', 'required')">Informe o Custo</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
+      <mat-label>Preço</mat-label>
+      <input matInput formControlName="price"/>
+      <mat-error *ngIf="hasError('price', 'required')">Informe o Preço</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">

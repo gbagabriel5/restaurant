@@ -83,7 +83,7 @@
           class="example-list"
           (cdkDropListDropped)="drop($event)"
           [cdkDropListEnterPredicate]="alreadyIntoArray" id="ck2">
-          <div class="example-box" *ngFor="let ficha of fichaTecnica, let i=index" cdkDrag>{{ficha.name}}<strong>$ {{product.productItemDtos[i]?.qtde}}</strong></div>
+          <div class="example-box" *ngFor="let ficha of fichaTecnica, let i=index" cdkDrag>{{ficha.name}}<strong>{{product.productItemDtos[i]?.qtde}}</strong></div>
         </div>
       </div>
       </div>

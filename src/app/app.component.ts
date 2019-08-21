@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
     iconRegistry.addSvgIcon('store', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/store.svg'));
     iconRegistry.addSvgIcon('clients', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/clientes.svg'));
     iconRegistry.addSvgIcon('estoque', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/estoque.svg'));
+    iconRegistry.addSvgIcon('more', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/moreIcon.svg'));
+    iconRegistry.addSvgIcon('fast-food', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/food.svg'));
+    iconRegistry.addSvgIcon('search', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/searchIcon.svg'));
   }
 
   ngOnInit() {

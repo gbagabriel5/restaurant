@@ -11,7 +11,7 @@ import {
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {even, RxwebValidators} from '@rxweb/reactive-form-validators';
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDropList, transferArrayItem} from '@angular/cdk/drag-drop';
 import {ProductDialogComponent} from '../product-dialog/product-dialog.component';
 
 @Component({
@@ -26,20 +26,27 @@ export class ProductRegisterUpdateComponent implements OnInit {
   public edit = false;
   public items: ItemDto[];
   public fichaTecnica: ItemDto[] = [];
-  public itemProduto: ProductItemDto[];
-  public custo;
+  public calculatedCost = 0;
+  public imaskConfig = {
+    mask: Number,
+    scale: 2,
+    thousandsSeparator: '',
+    padFractionalZeros: true,
+    normalizeZeros: true,
+    radix: ','
+  };
   // tslint:disable-next-line:new-parens
   private product: ProductDto = new class implements ProductDto {
-    cost: number;
-    id: number;
-    minQuantity: number;
-    name: string;
-    price: number;
+    cost: number = null;
+    id: number = null;
+    minQuantity: number = null;
+    name: string = null;
+    price: number = null;
     productCategoryDto: ProductCategoryDto;
     productItemDtos: ProductItemDto[] = [];
-    control: string;
-    quantity: number;
-    status: string;
+    control: string = null;
+    quantity: number = null;
+    status: string = null;
   };
 
   constructor(private productService: ProductControllerService,
@@ -62,6 +69,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
         this.productService.findByIdUsingGET5(params.id).subscribe((res: ProductDto) => {
           console.log(res);
           this.product = res;
+          this.calculatedCost = this.product.cost;
           for (const ficha of this.product.productItemDtos) {
             this.fichaTecnica.push(ficha.itemDto);
           }
@@ -92,7 +100,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
       price: [this.product.price, Validators.compose([
         RxwebValidators.required()
       ])],
-      cost: [this.product.cost, Validators.compose([
+      cost: [this.calculatedCost, Validators.compose([
         RxwebValidators.required()
       ])],
       control: [this.product.control ? this.product.control : 'Não', Validators.compose([
@@ -105,9 +113,9 @@ export class ProductRegisterUpdateComponent implements OnInit {
       ])],
     });
   }
-  // private setProduct() {
-  //   this.product = Object.assign(this.product, this.productForm.value);
-  // }
+  private setProduct() {
+    this.product = Object.assign(this.product, this.productForm.value);
+  }
   public hasError = (controlName: string, errorName: string) => {
     return this.productForm.get(controlName).hasError(errorName);
   }
@@ -176,17 +184,6 @@ export class ProductRegisterUpdateComponent implements OnInit {
         });
     }
   }
-
-  private setProduct() {
-    this.product.name = this.productForm.get('name').value;
-    this.product.price = this.productForm.get('price').value;
-    // this.product.cost = this.productForm.get('cost').value;
-    this.product.control = this.productForm.get('control').value;
-    this.product.quantity = this.productForm.get('quantity').value;
-    this.product.minQuantity = this.productForm.get('minQuantity').value;
-    this.product.productCategoryDto.id = this.productForm.get('productCategoryDto').value.id;
-  }
-
   alreadyIntoArray(item: CdkDrag<ItemDto>, array: CdkDropList<ItemDto[]>) {
     if (array.data.find((insumos) => insumos.id === item.data.id)) {
       return false;
@@ -206,6 +203,9 @@ export class ProductRegisterUpdateComponent implements OnInit {
           event.previousIndex,
           event.currentIndex);
         console.log(event);
+        const qt = this.product.productItemDtos[event.previousIndex].qtde;
+        const cost = this.product.productItemDtos[event.previousIndex].itemDto.cost;
+        this.calculatedCost -= qt * cost;
         this.removeItemFromProduct(event.previousIndex);
         console.log(this.product);
       }
@@ -217,7 +217,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
       width: '250px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result.status !== 'CANCEL') {
         console.log(event);
         transferArrayItem(event.previousContainer.data,
@@ -225,7 +225,8 @@ export class ProductRegisterUpdateComponent implements OnInit {
           event.previousIndex,
           event.container.data.length);
         this.setItemsInProduct(item, result.qtd);
-        // this.product.cost = result * item.price;
+        console.log(result.qtd * item.cost);
+        this.calculatedCost += result.qtd * item.cost;
       }
     });
   }

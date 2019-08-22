@@ -19,6 +19,7 @@ import {ProductListComponent} from './product/product-list/product-list.componen
 import {ProductRegisterUpdateComponent} from './product/product-register-update/product-register-update.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {ProductDialogComponent} from './product/product-dialog/product-dialog.component';
+import {IMaskModule} from 'angular-imask';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {ProductDialogComponent} from './product/product-dialog/product-dialog.co
     AppRoutingModule,
     ErrorsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    IMaskModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -42,24 +42,14 @@
                 <td mat-cell *matCellDef="let row">{{row.name}}</td>
               </ng-container>
 
-              <ng-container matColumnDef="price">
-                <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>Preço</th>
-                <td mat-cell *matCellDef="let row">R${{row.price}}</td>
-              </ng-container>
-
               <ng-container matColumnDef="cost">
                 <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>Custo</th>
-                <td mat-cell *matCellDef="let row">R${{row.cost}}</td>
+                <td mat-cell *matCellDef="let row">R${{row.cost}} <strong>{{row.unit}}</strong></td>
               </ng-container>
 
               <ng-container matColumnDef="quantity">
                 <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>Qtde.</th>
                 <td mat-cell *matCellDef="let row">{{row.quantity}}</td>
-              </ng-container>
-
-              <ng-container matColumnDef="unit">
-                <th [ngStyle]="{'width': tdWidth + '%'}" mat-header-cell *matHeaderCellDef>Unidade</th>
-                <td mat-cell *matCellDef="let row">{{row.unit}}</td>
               </ng-container>
 
               <ng-container matColumnDef="options">

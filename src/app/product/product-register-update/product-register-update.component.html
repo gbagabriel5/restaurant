@@ -14,7 +14,7 @@
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Custo</mat-label>
-      <input matInput formControlName="cost"/>
+      <input matInput formControlName="cost" [(ngModel)]="calculatedCost" readonly/>
       <mat-error *ngIf="hasError('cost', 'required')">Informe o Custo</mat-error>
     </mat-form-field>
 
@@ -68,7 +68,7 @@
           [cdkDropListConnectedTo]="[doneList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)" id="ck1">
-          <div class="example-box" *ngFor="let item of items" cdkDrag [cdkDragData]="item">{{item.name}}</div>
+          <div class="example-box" *ngFor="let item of items" cdkDrag [cdkDragData]="item">{{item.name}} <strong>R${{item.cost}}{{item.unit}}</strong></div>
         </div>
       </div>
       </div>

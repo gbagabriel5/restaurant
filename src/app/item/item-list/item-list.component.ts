@@ -14,7 +14,7 @@ export class ItemListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatDrawer, {static: true}) drawer: MatDrawer;
   public edit = false;
   public item: ItemDto[];
-  public displayedColumns: string[] = ['id', 'name', 'price', 'cost', 'quantity', 'unit', 'options'];
+  public displayedColumns: string[] = ['id', 'name', 'cost', 'quantity', 'options'];
   public tdWidth = 100 / (this.displayedColumns.length - 1);
   public pageSizeOptions: number[] = [5, 10, 25, 50];
   public selectedSizePage = 5;

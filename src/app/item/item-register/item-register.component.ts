@@ -22,6 +22,14 @@ export class ItemRegisterComponent implements OnInit {
   public formItem: FormGroup;
   units: string[] = ['UN', 'KG', 'LT'];
   private edit = false;
+  public imaskConfig = {
+    mask: Number,
+    scale: 2,  // digits after point, 0 for integers
+    thousandsSeparator: '',  // any single char
+    padFractionalZeros: true,  // if true, then pads zeros at end to the length of scale
+    normalizeZeros: true,  // appends or removes zeros at ends
+    radix: ','  // fractional delimiter
+  };
 
   // tslint:disable-next-line:new-parens
   public item: ItemDto = new class implements ItemDto {
@@ -30,7 +38,6 @@ export class ItemRegisterComponent implements OnInit {
     itemCategoryDto: ItemCategoryDto;
     minQuantity: number;
     name: string;
-    price: number;
     providerDto: ProviderDto;
     quantity: number;
     shelfLife: number;
@@ -82,9 +89,6 @@ export class ItemRegisterComponent implements OnInit {
       name: [this.item.name, Validators.compose([
         RxwebValidators.required()
       ])],
-      price: [this.item.price, Validators.compose([
-        RxwebValidators.required()
-      ])],
       cost: [this.item.cost, Validators.compose([
         RxwebValidators.required()
       ])],
@@ -111,7 +115,6 @@ export class ItemRegisterComponent implements OnInit {
   private setItem() {
     this.item.id = null;
     this.item.name = this.formItem.value.name;
-    this.item.price = this.formItem.value.price;
     this.item.cost = this.formItem.value.cost;
     this.item.unit = this.formItem.value.unit;
     this.item.quantity = this.formItem.value.quantity;
@@ -167,7 +170,6 @@ export class ItemRegisterComponent implements OnInit {
   }
   private setItemToSave() {
     this.item.name = this.formItem.get('name').value;
-    this.item.price = this.formItem.get('price').value;
     this.item.cost = this.formItem.get('cost').value;
     this.item.unit = this.formItem.get('unit').value;
     this.item.quantity = this.formItem.get('quantity').value;

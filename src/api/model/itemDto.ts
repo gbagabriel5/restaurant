@@ -19,7 +19,6 @@ export interface ItemDto {
     itemCategoryDto?: ItemCategoryDto;
     minQuantity?: number;
     name?: string;
-    price?: number;
     providerDto?: ProviderDto;
     quantity?: number;
     shelfLife?: number;

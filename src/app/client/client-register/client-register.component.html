@@ -8,31 +8,31 @@
   <div class="example-container">
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Name</mat-label>
-      <input matInput formControlName="name"/>
+      <input matInput formControlName="name" autocomplete="off"/>
       <mat-error *ngIf="hasError('name', 'required')">Informe o nome</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>RG</mat-label>
-      <input matInput formControlName="rg"/>
+      <input matInput formControlName="rg" autocomplete="off"/>
       <mat-error *ngIf="hasError('rg', 'required')">Informe o RG</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>CPF</mat-label>
-      <input matInput formControlName="cpf"/>
+      <input [imask]="{mask: '000.000.000-00'}" matInput formControlName="cpf" autocomplete="off"/>
       <mat-error *ngIf="hasError('cpf', 'required')">Informe o CPF</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Endereço</mat-label>
-      <input matInput formControlName="adress"/>
-      <mat-error *ngIf="hasError('adress', 'required')">Informe o Endereço</mat-error>
+      <input matInput formControlName="adress" autocomplete="off"/>
+      <mat-error *ngIf="hasError('adress', 'required')" >Informe o Endereço</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Telefone</mat-label>
-      <input matInput formControlName="fone"/>
+      <input matInput formControlName="fone" autocomplete="off"/>
       <mat-error *ngIf="hasError('fone', 'required')">Informe o Numero de Telefone</mat-error>
     </mat-form-field>
 

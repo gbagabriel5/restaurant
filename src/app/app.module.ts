@@ -20,6 +20,7 @@ import {ProductRegisterUpdateComponent} from './product/product-register-update/
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {ProductDialogComponent} from './product/product-dialog/product-dialog.component';
 import {IMaskModule} from 'angular-imask';
+import {TableListComponent} from './tables/table-list/table-list.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {IMaskModule} from 'angular-imask';
     ItemRegisterComponent,
     ProductListComponent,
     ProductRegisterUpdateComponent,
-    ProductDialogComponent
+    ProductDialogComponent,
+    TableListComponent
   ],
   imports: [
     BrowserModule,

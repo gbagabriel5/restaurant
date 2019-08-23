@@ -14,7 +14,7 @@
 
     <mat-form-field appearance="outline" fxFlexFill class="ml5 mr5">
       <mat-label>Custo</mat-label>
-      <input matInput formControlName="cost" [(ngModel)]="calculatedCost" readonly/>
+      <input matInput formControlName="cost" [(ngModel)]="calculatedCost"/>
       <mat-error *ngIf="hasError('cost', 'required')">Informe o Custo</mat-error>
     </mat-form-field>
 

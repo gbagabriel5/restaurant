@@ -11,6 +11,7 @@
  */
 
 
-export interface TablesDto { 
+export interface TablesDto {
     id?: number;
+    status?: string;
 }

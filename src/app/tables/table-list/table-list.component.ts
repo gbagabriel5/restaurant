@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TablesControllerService, TablesDto} from "../../../api";
+import {TablesControllerService, TablesDto} from '../../../api';
 
 @Component({
   selector: 'app-table-list',

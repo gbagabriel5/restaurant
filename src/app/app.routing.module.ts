@@ -7,6 +7,10 @@ import {ClientsListComponent} from './client/clients-list/clients-list.component
 import {ProductRegisterUpdateComponent} from './product/product-register-update/product-register-update.component';
 import {ProductListComponent} from './product/product-list/product-list.component';
 import {TableListComponent} from './tables/table-list/table-list.component';
+import {MenuItemComponent} from './restaurant-detail/menu-item/menu-item.component';
+import {MenuComponent} from './restaurant-detail/menu/menu.component';
+import {ShoppingCartComponent} from './restaurant-detail/shopping-cart/shopping-cart.component';
+import {OrderComponent} from "./order/order.component";
 const routes: Routes = [
   { path: 'item/list', component: ItemListComponent},
   { path: 'item/register', component: ItemRegisterComponent},
@@ -18,6 +22,11 @@ const routes: Routes = [
   { path: 'product/register', component: ProductRegisterUpdateComponent},
   { path: 'product/update/:id', component: ProductRegisterUpdateComponent},
   { path: 'table-list', component: TableListComponent},
+  { path: 'menu-item', component: MenuItemComponent},
+  { path: 'menu', component: MenuComponent},
+  { path: 'menu/:id', component: MenuComponent},
+  { path: 'cart', component: ShoppingCartComponent},
+  { path: 'order', component: OrderComponent},
   { path: '**', component: ProductListComponent}
 ];
 @NgModule({

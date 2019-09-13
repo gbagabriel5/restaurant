@@ -23,6 +23,13 @@ export class AppComponent implements OnInit {
     iconRegistry.addSvgIcon('fast-food', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/food.svg'));
     iconRegistry.addSvgIcon('search', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/searchIcon.svg'));
     iconRegistry.addSvgIcon('tables', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/dinner-table.svg'));
+    iconRegistry.addSvgIcon('add', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/add.svg'));
+    iconRegistry.addSvgIcon('cart', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/cart.svg'));
+    iconRegistry.addSvgIcon('trash', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/trash.svg'));
+    iconRegistry.addSvgIcon('card', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/card.svg'));
+    iconRegistry.addSvgIcon('x', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/x.svg'));
+    iconRegistry.addSvgIcon('plus', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/plus.svg'));
+    iconRegistry.addSvgIcon('minus', sanitizer.bypassSecurityTrustResourceUrl('assets/icons/minus.svg'));
   }
 
   ngOnInit() {

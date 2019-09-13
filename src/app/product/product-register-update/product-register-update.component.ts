@@ -36,7 +36,7 @@ export class ProductRegisterUpdateComponent implements OnInit {
     radix: ','
   };
   // tslint:disable-next-line:new-parens
-  private product: ProductDto = new class implements ProductDto {
+  public product: ProductDto = new class implements ProductDto {
     cost: number = null;
     id: number = null;
     minQuantity: number = null;

@@ -56,7 +56,7 @@
                  *ngIf="productForm.get('productCategoryDto').touched && hasError('productCategoryDto', 'required')">Selecione uma categoria
       </mat-error>
     </mat-form-field>
-
+    <div *ngIf="productForm.get('control').value == 'Não'">
     <div fxLayoutAlign="row space-between">
       <div fxFlex="50">
         <h2>Insumos</h2>
@@ -87,6 +87,7 @@
         </div>
       </div>
       </div>
+    </div>
     </div>
     <button mat-button class="btn-register" mat-raised-button color="warn" (click)="save()" cdkFocusInitial *ngIf="!this.edit">Salvar</button>
     <button class="clickable btn-register" mat-raised-button color="warn" (click)="update()" *ngIf="this.edit" id="product-btn-update">Atualizar</button>
